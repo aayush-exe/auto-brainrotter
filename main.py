@@ -42,7 +42,7 @@ def create_captions_video(captions):
     video = concatenate_videoclips(clips)
     
     # Write the result to a file
-    video.write_videofile("captions_video_9_16.mp4", fps=24, logger = None)
+    video.write_videofile("output/captions_video_9_16.mp4", fps=24, logger = None)
 
 # Example usage
 captions = [
