@@ -1,27 +1,27 @@
 import os
+import random
 os.environ["IMAGEIO_FFMPEG_EXE"] = "/opt/homebrew/bin/ffmpeg"
 
 from moviepy.editor import *
 from moviepy.config import change_settings
 change_settings({"IMAGEMAGICK_BINARY": "/opt/homebrew/bin/convert"})
 
-#from moviepy.editor import TextClip, concatenate_videoclips
+video_duration = 14
 
+# chooses random background from "backgrounds" folder
+items = os.listdir("backgrounds")
+file_count = sum(1 for item in items if os.path.isfile(os.path.join("backgrounds", item))) - 1
 
-# clip = VideoFileClip("testvideo.mp4") 
-  
-# # clipping of the video  
-# # getting video for only starting 10 seconds 
-# clip = clip.subclip(0, 10) 
-  
-# # rotating video by 180 degree 
-# clip = clip.rotate(180) 
-  
-# # Reduce the audio volume (volume x 0.5) 
-# clip = clip.volumex(0.5) 
+clip_number = str(random.randint(0,file_count-1))
+background = VideoFileClip("backgrounds/background_"+clip_number+".mp4")
 
-##clip.resize(width=480)
-  
+# selects random 
+starting = random.randint(0,int( background.duration - video_duration))
+background = background.subclip(starting, starting+video_duration) 
+
+print("using clip "+clip_number+" with starting time "+str(starting))
+
+background.write_videofile("output/testingmore.mp4", threads=4, audio = False, logger=None) 
 
 
 # Function to create a video with captions from an array of tuples
@@ -44,14 +44,14 @@ def create_captions_video(captions):
     # Write the result to a file
     video.write_videofile("output/captions_video_9_16.mp4", fps=24, logger = None)
 
-# Example usage
+
 captions = [
     ("Hello, world!", 2),
     ("This is a test.", 3),
     ("MoviePy is great!", 4)
 ]
 
-create_captions_video(captions)
+#create_captions_video(captions)
 
 # showing clip 
 #clip.write_videofile("movie.mp4", threads=4, audio = False, logger=None) 
