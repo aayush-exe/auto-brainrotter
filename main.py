@@ -19,7 +19,7 @@ background = VideoFileClip("backgrounds/background_"+clip_number+".mp4")
 starting = random.randint(0,int( background.duration - video_duration))
 background = background.subclip(starting, starting+video_duration) 
 
-print("using clip "+clip_number+" with starting time "+str(starting))
+print("using clip #"+clip_number+" with starting time "+str(starting//60)+":"+str(starting%60))
 
 background.write_videofile("output/testingmore.mp4", threads=4, audio = False, logger=None) 
 
